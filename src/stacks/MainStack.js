@@ -5,6 +5,7 @@ import Preload from '../views/Preload';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
 
+import MainTab from './MainTab';
 const Stack = createStackNavigator();
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
       <Stack.Screen name="Preload" component={Preload} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="MainTab" component={MainTab} />
     </Stack.Navigator>
   );
 };
