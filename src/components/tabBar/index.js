@@ -1,5 +1,5 @@
 import React from 'react';
-import {TabArea, TabItem} from './styles';
+import {TabArea, TabItem, TabItemCenter} from './styles';
 
 import HomeIcon from '../../assets/home.svg';
 import SearchIcon from '../../assets/search.svg';
@@ -10,22 +10,45 @@ export default ({state, navigation}) => {
   const goTo = (screenName) => {
     navigation.navigate(screenName);
   };
+  const activeRoute = (route) => {
+    return state.index === route ? 1 : 0.6;
+  };
   return (
     <TabArea>
       <TabItem onPress={() => goTo('Home')}>
-        <HomeIcon width="24" height="24" fill="#FFFFFF" />
+        <HomeIcon
+          style={{opacity: activeRoute(0)}}
+          width="24"
+          height="24"
+          fill="#FFFFFF"
+        />
       </TabItem>
       <TabItem onPress={() => goTo('Search')}>
-        <SearchIcon width="24" height="24" fill="#FFFFFF" />
+        <SearchIcon
+          style={{opacity: activeRoute(1)}}
+          width="24"
+          height="24"
+          fill="#FFFFFF"
+        />
       </TabItem>
-      <TabItem onPress={() => goTo('Appointments')}>
-        <TodayIcon width="24" height="24" fill="#FFFFFF" />
-      </TabItem>
+      <TabItemCenter onPress={() => goTo('Appointments')}>
+        <TodayIcon width="32" height="32" fill="#4eadbe" />
+      </TabItemCenter>
       <TabItem onPress={() => goTo('Favorites')}>
-        <FavoriteIcon width="24" height="24" fill="#FFFFFF" />
+        <FavoriteIcon
+          style={{opacity: activeRoute(3)}}
+          width="24"
+          height="24"
+          fill="#FFFFFF"
+        />
       </TabItem>
       <TabItem onPress={() => goTo('Profile')}>
-        <AccountIcon width="24" height="24" fill="#FFFFFF" />
+        <AccountIcon
+          style={{opacity: activeRoute(4)}}
+          width="24"
+          height="24"
+          fill="#FFFFFF"
+        />
       </TabItem>
     </TabArea>
   );

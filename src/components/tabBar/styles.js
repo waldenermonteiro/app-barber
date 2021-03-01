@@ -11,3 +11,13 @@ export const TabItem = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
+export const TabItemCenter = styled.TouchableOpacity`
+  width: 70px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 35px;
+  border: 3px solid #4eadbe;
+  margin-top: -20px;
+`;
