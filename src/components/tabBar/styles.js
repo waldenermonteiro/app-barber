@@ -21,3 +21,8 @@ export const TabItemCenter = styled.TouchableOpacity`
   border: 3px solid #4eadbe;
   margin-top: -20px;
 `;
+export const UserAvatar = styled.Image`
+  width: 24px;
+  height: 24pc;
+  border-radius: 12px;
+`;

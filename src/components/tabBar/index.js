@@ -1,12 +1,25 @@
-import React from 'react';
-import {TabArea, TabItem, TabItemCenter} from './styles';
-
+import React, {useContext} from 'react';
+import {TabArea, TabItem, TabItemCenter, UserAvatar} from './styles';
+import {Image, StyleSheet} from 'react-native';
 import HomeIcon from '../../assets/home.svg';
 import SearchIcon from '../../assets/search.svg';
 import TodayIcon from '../../assets/today.svg';
 import FavoriteIcon from '../../assets/favorite.svg';
 import AccountIcon from '../../assets/account.svg';
+import {UserContext} from '../../contexts/UserContext';
+
+const styles = StyleSheet.create({
+  tinyLogo: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+  },
+});
 export default ({state, navigation}) => {
+  const {state: user} = useContext(UserContext);
+
+  console.log(user);
+
   const goTo = (screenName) => {
     navigation.navigate(screenName);
   };
@@ -43,12 +56,16 @@ export default ({state, navigation}) => {
         />
       </TabItem>
       <TabItem onPress={() => goTo('Profile')}>
-        <AccountIcon
-          style={{opacity: activeRoute(4)}}
-          width="24"
-          height="24"
-          fill="#FFFFFF"
-        />
+        {user.avatar !== '' ? (
+          <Image style={styles.tinyLogo} source={{uri: user.avatar}} />
+        ) : (
+          <AccountIcon
+            style={{opacity: activeRoute(4)}}
+            width="24"
+            height="24"
+            fill="#FFFFFF"
+          />
+        )}
       </TabItem>
     </TabArea>
   );
