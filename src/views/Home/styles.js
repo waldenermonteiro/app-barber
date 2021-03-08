@@ -18,6 +18,11 @@ export const HeaderTitle = styled.Text`
   font-weight: bold;
   color: #fff;
 `;
+export const ListArea = styled.View`
+  margin-top: 30px;
+  margin-bottom: 30px;
+`;
+
 export const LocationArea = styled.View`
   background-color: #4eadbe;
   height: 60px;

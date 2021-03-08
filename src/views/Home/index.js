@@ -13,8 +13,9 @@ import {
   LocationInput,
   LocationFinder,
   LoadingIcon,
+  ListArea,
 } from './styles';
-
+import BarberItem from '../../components/barberItem';
 import SearchIcon from '../../assets/search.svg';
 import MyLocationIcon from '../../assets/my_location.svg';
 import Api from '../../Api';
@@ -24,7 +25,7 @@ export default () => {
   const [locationText, setLocationText] = useState('');
   const [coordsUser, setCoordsUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [list, setList] = useState('');
+  const [list, setList] = useState([]);
   const handleLocationFinder = async () => {
     setCoordsUser(null);
     let result = await request(
@@ -60,7 +61,8 @@ export default () => {
       if (result.loc) {
         setLocationText(result.loc);
       }
-      setList(result.data);
+      const {data} = result;
+      setList(data);
     } else {
       alert(result.error);
     }
@@ -94,6 +96,12 @@ export default () => {
           </LocationFinder>
         </LocationArea>
         {loading && <LoadingIcon size="large" color="#FFFFFF" />}
+
+        <ListArea>
+          {list.map((item, k) => (
+            <BarberItem key={k} data={item} />
+          ))}
+        </ListArea>
       </Scroller>
     </Container>
   );
