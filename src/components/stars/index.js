@@ -1,22 +1,10 @@
 import React from 'react';
-import styled from 'styled-components/native';
+
+import {StarArea, StarView, StarText} from './styles';
 
 import StarFull from '../../assets/star.svg';
 import StarHalf from '../../assets/star_half.svg';
 import StarEmpty from '../../assets/star_empty.svg';
-
-const StarArea = styled.View`
-  flex-direction: row;
-`;
-const StarView = styled.View``;
-
-const StarText = styled.Text`
-  font-size: 12px;
-  font-weight: bold;
-  margin-left: 5px;
-  color: #737373;
-`;
-
 export default ({stars, showNumber}) => {
   let s = [0, 0, 0, 0, 0];
   let floor = Math.floor(stars);
