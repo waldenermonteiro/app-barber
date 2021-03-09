@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Platform} from 'react-native';
+import {Platform, RefreshControl} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {request, PERMISSIONS} from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
@@ -26,6 +26,7 @@ export default () => {
   const [coordsUser, setCoordsUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   const handleLocationFinder = async () => {
     setCoordsUser(null);
     let result = await request(
@@ -56,7 +57,15 @@ export default () => {
     setLoading(true);
     setList([]);
 
-    const result = await Api.getBarbers();
+    let lat = null;
+    let lng = null;
+
+    if (coordsUser) {
+      lat = coordsUser.latitude;
+      lng = coordsUser.longitude;
+    }
+
+    const result = await Api.getBarbers(lat, lng, locationText);
     if (result.error == '') {
       if (result.loc) {
         setLocationText(result.loc);
@@ -73,9 +82,21 @@ export default () => {
     getBarbers();
   }, []);
 
+  const onRefresh = () => {
+    setRefreshing(false);
+    getBarbers();
+  };
+  const handleLocationSearch = () => {
+    setCoordsUser({});
+    getBarbers();
+  };
+
   return (
     <Container>
-      <Scroller>
+      <Scroller
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <HeaderArea>
           <HeaderTitle numberOfLines={2}>
             Encontre o seu barbeiro favorito
@@ -90,6 +111,7 @@ export default () => {
             placeholderTextColor="#ffffff"
             value={locationText}
             onChangeText={(t) => setLocationText(t)}
+            onEndEditing={handleLocationSearch}
           />
           <LocationFinder onPress={handleLocationFinder}>
             <MyLocationIcon width="24" height="24" fill="#FFFFFF" />
